@@ -13,8 +13,8 @@ $ ssh-keygen -t rsa -b 2048 -v -f keyname
 
 ## Role Variaveis
 - As variáveis disponíveis estão listadas abaixo, juntamente com os valores padrão:
- * [grup_vars](inventory/grup_vars/all.yml)
- * [defaults](roles/agent/defaults/main.yml)
+ * [grup_vars](ansible-zabbix/inventory/group_vars/all.yml)
+ * [defaults](ansible-zabbix/roles/agent/defaults/main.yml)
 
 ## Inventario
 - Arquivo de inventario para adicionar novos hosts
