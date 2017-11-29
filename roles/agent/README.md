@@ -55,4 +55,4 @@ btu-squid02
 - O playbook é executado e agendado pelo propio gitlab em modo de ci/cd.
 
 ## Autor:
-- [Fabio Coelho](http://gitlab.braspress.com.br/fabiocoelho-sao)
+- [Fabio Coelho](https://github.com/fcruzcoelho)
