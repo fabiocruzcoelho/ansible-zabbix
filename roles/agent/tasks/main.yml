@@ -1,0 +1,43 @@
+---
+# tasks file for agent
+- name: Copiando template zabbix.repo
+  template: >
+   src=zabbix.repo.j2
+   dest=/etc/yum.repos.d/zabbix.repo
+  tags: zabbix-agentd
+
+- name: Instalando ultima versao zabbix-agentd
+  yum: pkg={{ item }} state=latest
+  with_items:
+   - zabbix-agent
+  tags: zabbix-agentd
+
+- name: Criando diretorio para salvar binário
+  file:
+    path: /etc/zabbix/bin
+    state: directory
+    mode: 0755
+  tags: zabbix-agentd
+
+- name: Configurando binarios do Autodiscovery de Serviços
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0755 owner={{ item.owner }} group={{ item.group }}
+  with_items:
+    - { src: tcp_services, dest: /etc/zabbix/bin/, mode: 0755 ,owner: zabbix, group: zabbix }
+    - { src: udp_services, dest: /etc/zabbix/bin/, mode: 0755 ,owner: zabbix, group: zabbix }
+  tags: zabbix-agentd
+
+- name: Configurando arquivos do Autodiscovery de Serviços
+  copy: src={{ item.src }} dest={{ item.dest }} mode=0644 owner={{ item.owner }} group={{ item.group }}
+  with_items:
+    - { src: tcp_services.conf, dest: /etc/zabbix/zabbix_agentd.d/, mode: 0644 ,owner: root, group: root }
+    - { src: udp_services.conf, dest: /etc/zabbix/zabbix_agentd.d/, mode: 0644 ,owner: root, group: root }
+    - { src: sudoers, dest: /etc/sudoers, mode: 0644 ,owner: root, group: root }
+  notify: restart zabbix-agent
+  tags: zabbix-agentd
+
+- name: Copiando template zabbix_agentd.conf
+  template: >
+   src=zabbix_agentd.conf.j2
+   dest=/etc/zabbix/zabbix_agentd.conf
+  notify: restart zabbix-agent
+  tags: zabbix-agentd

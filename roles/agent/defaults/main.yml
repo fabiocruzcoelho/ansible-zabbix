@@ -1,0 +1,8 @@
+---
+# defaults file for agent
+ZA_PidFile: /var/run/zabbix/zabbix_agentd.pid
+ZA_LogFile: /var/log/zabbix/zabbix_agentd.log
+ZA_Hostname: '{{ ansible_hostname }}'
+ZA_HostMetadata: '{{ ansible_system }}'
+ZA_LogFileSize: 0
+ZA_ListenPort: 10050

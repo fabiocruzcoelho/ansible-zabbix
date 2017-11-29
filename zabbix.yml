@@ -1,0 +1,7 @@
+---
+- name: Configurando zabbix-agent
+  hosts: agentd
+  gather_facts: true
+  remote_user: root
+  roles:
+  - { role: agent }
